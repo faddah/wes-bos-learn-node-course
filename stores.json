@@ -1,0 +1,25 @@
+[{
+  "_id": {
+    "$oid": "638b8c90dd123e642ea1d6ba"
+  },
+  "name": "Schlemmy's",
+  "description": "Oh, I dunno, guys...",
+  "tags": [
+    "WiFi",
+    "Family Friendly",
+    "Vegetarian"
+  ],
+  "slug": "schlemmys",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "638b8d78dd123e642ea1d6bc"
+  },
+  "name": "Pike's Place Fish Market",
+  "description": "Big Shout Out to the Catch of the Day!",
+  "tags": [
+    "Licensed"
+  ],
+  "slug": "pikes-place-fish-market",
+  "__v": 0
+}]

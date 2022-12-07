@@ -1,0 +1,18 @@
+extends layout
+
+//- block header
+//- 	h2 Yo!!
+
+block content
+	.wrapper
+		h2 Sale Ends in #{h.moment().endOf('day').fromNow()}!
+		- const upDog = dog.toUpperCase();
+		h5.hello Hello! My name is #{name}, and my dog's name is #{upDog}.
+		img.dog(src="https://images.pexels.com/photos/1954515/pexels-photo-1954515.jpeg?auto=compress&cs=tinysrgb&w=315&h=187&dpr=2" alt=`Dog ${dog}`)
+		span 
+			h2#yo Yo!!
+			img.faddah-pic(src="https://i.imgur.com/1KagSkN.jpg" alt="faddah's pic")
+			h2 
+				| Hello —
+				p
+					em How are you?
