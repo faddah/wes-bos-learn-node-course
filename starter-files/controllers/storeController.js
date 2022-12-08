@@ -1,8 +1,32 @@
 const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
+const multer = require('multer');
+const jimp = require('jimp');
+const uuid = require('uuid');
+
+const multerOptions = {
+	storage: multer.memoryStorage(), // we save to memory only first, as we want to re-size it before saving to MongoDB
+	fileFilter(req, file, next) {
+		const isPhoto = file.mimetype.startsWith('image/');
+		isPhoto 
+			? next(null, true) 
+			: next({ message: 'That file type is not an image and isn\'t allowed!' }, false);
+	}
+}
 
 exports.homePage = (req, res) => res.render('index');
 exports.addStore = (req, res) => res.render('editStore', { title: 'Add Store' });
+
+exports.upload = multer(multerOptions).single('photo');
+
+exports.resize = async (req, res, next) => {
+	if(!req.file) {
+		next(); // skip to the next middleware
+		return;
+	}
+	console.log(req.file);
+}
+
 exports.createStore = async (req, res) => {
 	const store = await (new Store(req.body)).save();
 	// await store.save();
@@ -28,13 +52,15 @@ exports.editStores = async (req, res) => {
 }
 
 exports.updateStore = async (req, res) => {
-	// 1. find & update the storey
-	// findOneAndUpdate takes three params — the query, data, options
+	// 1. Set the location data to be a "Point" in Mongo Schema
+	req.body.location.type = 'Point';
+	// 2. find & update the storey
+	// findOneAndUpdate() takes three params — the query, data, options
 	const store = await Store.findOneAndUpdate({ _id: req.params.id }, req.body, {
 		new: true, // returns the new store instead of the old one
 		runValidators: true // runs the Schema validators AGAIN, so they can't be changed, on Update
 	}).exec();  // with findOneAndUpdate(), you have to run .exec() after it to make sure it runs.
-	// 2. re-direct them to the store and tell them it worked.
+	// 3. re-direct them to the store and tell them it worked.
 	req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/stores/${store.slug}>View Store →</a>"`);
 	res.redirect(`/stores/${store._id}/edit`)
 	console.log('Update me, baby.')

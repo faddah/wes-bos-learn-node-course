@@ -1,11 +1,17 @@
 mixin storeForm(store = [])
 	//- h4 It Works! #{store.name}
 	//- pre= h.dump(store)
-	form(action=`/add/${store._id || ''}` method="POST" /*enctype="multipart/form-data"*/ class="card")
+	//- you do enctype="multipart/form-data" on this form so it can take/display pics
+	form(action=`/add/${store._id || ''}` method="POST" enctype="multipart/form-data" class="card")
 		label(for="name") Name 
 		input(type="text" name="name" value=store.name)
 		label(for="description") Description 
 		textarea(name="description")= store.description
+		//- Image upload
+		label(for="photo") Photo
+			input(type="file" name="photo" id="photo" accept="image/gif, image/png, image/jpeg")
+			if store.photo
+				img(src=`/uploads/${store.photo}`, alt=store.name width=200)
 		//-  address, long. & lat.
 		label(for="address") Address
 		input(type="text" id="address" name="location[address]" value=(store.location && store.location.address))
