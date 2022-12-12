@@ -24,7 +24,17 @@ exports.resize = async (req, res, next) => {
 		next(); // skip to the next middleware
 		return;
 	}
-	console.log(req.file);
+	// console.log(req.file);
+	// get the pic file extension from the end of the mimetype
+	const extension = req.file.mimetype.split('/')[1];
+	req.body.photo = `${uuid.v4()}.${extension}`;
+	// now we resize
+	const photo = await jimp.read(req.file.buffer);
+	await photo.resize(800, jimp.AUTO);
+	await photo.write(`./public/uploads/${req.body.photo}`);
+	// once we'ver written/saved the photo to our file system,
+	// skip on to the next & keep going!
+	next();
 }
 
 exports.createStore = async (req, res) => {
@@ -35,12 +45,14 @@ exports.createStore = async (req, res) => {
 	req.flash('success', `Successfully Created ${store.name}. Care to leave a review?`)
 	res.redirect(`/store/${store.slug}`);
 };
+
 exports.getStores = async (req, res) => {
 	// 1. Query the Database for the list of *all* the stores
 	// console.log(stores);
 	const stores = await Store.find(); 
 	res.render('stores', { title: "Our Stores", elips: "...", stores });
 }
+
 exports.editStores = async (req, res) => {
 	// 1. Find the store given the id
 	// res.json(req.params); // shows it returns just the id for that store from the params
@@ -65,3 +77,11 @@ exports.updateStore = async (req, res) => {
 	res.redirect(`/stores/${store._id}/edit`)
 	console.log('Update me, baby.')
 };
+
+exports.getStoreBySlug = async (req, res, next) => {
+	// res.send('hey, it works. what else you want? you\'re so demanding.');
+	const store = await Store.findOne({ slug: req.params.slug });
+	if(!store) return next();
+	// res.json(store);
+	res.render('store', { store, title: store.name });
+}

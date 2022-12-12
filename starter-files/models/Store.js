@@ -36,15 +36,21 @@ const storeSchema = new mongoose.Schema({
 	photo: String
 });
 
-storeSchema.pre('save', function(next) {
+storeSchema.pre('save', async function(next) {
 	if(!this.isModified('name')) { // if the name has NOT been modified...
 		next(); // skip this entirely!
 		return; // stop the function from running
 		// can also be expressed shorter in one line as `return next();`
 	}
-	this.slug = slug(this.name);
-	next();
 	// TODO: Make more resillient, so slugs are always unique (i.e., more than one Tim Horton's chain, etc.).
+	// find other similarly named stores, to prevent duplicate slub names
+	// like faddah, faddah-2, faddah-3, etc
+	const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
+	const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
+	if(storesWithSlug.length) {
+		this.slug = `${this.slug}-${this.storesWithSlug.length + 1}`
+	}
+	next();
 });
 
 module.exports = mongoose.model('Store', storeSchema);
