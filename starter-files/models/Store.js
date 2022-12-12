@@ -42,15 +42,37 @@ storeSchema.pre('save', async function(next) {
 		return; // stop the function from running
 		// can also be expressed shorter in one line as `return next();`
 	}
+	this.slug = slug(this.name);
 	// TODO: Make more resillient, so slugs are always unique (i.e., more than one Tim Horton's chain, etc.).
 	// find other similarly named stores, to prevent duplicate slub names
 	// like faddah, faddah-2, faddah-3, etc
 	const slugRegEx = new RegExp(`^(${this.slug})((-[0-9]*$)?)$`, 'i');
 	const storesWithSlug = await this.constructor.find({ slug: slugRegEx });
 	if(storesWithSlug.length) {
-		this.slug = `${this.slug}-${this.storesWithSlug.length + 1}`
+		this.slug = `${this.slug}-${storesWithSlug.length + 1}`
 	}
 	next();
 });
+
+storeSchema.statics.getTagsList = function() {
+	// Docs on MongoDB Aggregate Pipeline Operators —
+	// https://www.mongodb.com/docs/manual/reference/operator/aggregation/
+	return this.aggregate([
+		// it's basically - use MongoDB aggregator pipeline functions to:
+		// 1. $unwind what tags are in each store
+		// 2. $group them by tag and count them with $sum
+		// 3. $sort them
+		// $unwind aggregation operator function on MongoDB docs —
+		// https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/
+		{ $unwind: '$tags' },
+		// $group & $sum operators on MongoDB Docs —
+		// https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#mongodb-pipeline-pipe.-group
+		// https://www.mongodb.com/docs/manual/reference/operator/aggregation/sum/#mongodb-group-grp.-sum
+		{ $group: { _id: '$tags', count: { $sum: 1 } } },
+		// $sort operator on MongoDB Docs —
+		// https://www.mongodb.com/docs/v6.0/reference/operator/aggregation/sort/
+		{ $sort: { count: -1 } }  // -1 sorts it in descending order
+	]);
+}
 
 module.exports = mongoose.model('Store', storeSchema);
