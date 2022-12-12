@@ -73,6 +73,16 @@ storeSchema.statics.getTagsList = function() {
 		// https://www.mongodb.com/docs/v6.0/reference/operator/aggregation/sort/
 		{ $sort: { count: -1 } }  // -1 sorts it in descending order
 	]);
+
+	/*
+	storeSchema.statics.getTagsList = function() {
+		return this.aggregate([
+			{ $unwind: '$tags' },
+			{ $group: { _id: '$tags', count: { $sum: 1 } } },
+			{ $sort: { count: -1 } }
+		]);
+	}
+	*/
 }
 
 module.exports = mongoose.model('Store', storeSchema);
