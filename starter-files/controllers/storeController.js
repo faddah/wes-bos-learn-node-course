@@ -60,7 +60,7 @@ exports.editStores = async (req, res) => {
 	// res.json(store);
 	// TODO: 2. Authenticate user as store owner via login
 	// 3. Render out the edit form so the store owner can update their page
-	res.render('editStore', { title: `Edit ${store.name}`, store })
+	res.render('editStore', { title: `Edit ${store.name}`, store });
 }
 
 exports.updateStore = async (req, res) => {
@@ -88,7 +88,11 @@ exports.getStoreBySlug = async (req, res, next) => {
 
 exports.getStoresByTag = async (req, res) => {
 	// res.send(`<h2>It Works, You Bastardz!</h2>`);
-	const tags = await Store.getTagsList();
 	const tag = req.params.tag;
-	res.render('tag', { tags, title: '#Tags!', tag });
+	const tagQuery = tag || { $exists: true };
+	const tagsPromise = Store.getTagsList();
+	const storePromise = Store.find({ tags: tagQuery });
+	const [tags, stores] = await Promise.all([tagsPromise, storePromise]);
+	// res.json(stores);
+	res.render('tag', { tags, title: '#Tags!', tag, stores });
 }
