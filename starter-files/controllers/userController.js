@@ -39,6 +39,6 @@ exports.register = async (req, res, next) => {
 	const register = promisify(User.register, User);
 	await register(user, req.body.password);
 	// console.log('you\'re registered!');
-	res.send(`<h1>It worked!</h1>`)
+	// res.send(`<h1>It worked!</h1>`)
 	next();  // if successful, pass to next middleware, authController().login
 };
