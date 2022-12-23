@@ -1,9 +1,11 @@
 extends layout 
 
 include mixins/_loginForm
+include mixins/_forgot
 
 block content 
 	br
 	.inner 
 		//- h2= title 
 		+loginForm()
+		+forgotForm()

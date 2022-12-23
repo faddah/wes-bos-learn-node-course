@@ -1,0 +1,255 @@
+[{
+  "_id": {
+    "$oid": "639135cf2b170949bbff9899"
+  },
+  "name": "Brew Bar",
+  "description": "The Place for the Brewskis and MORE!",
+  "tags": [
+    "WiFi",
+    "Open Late",
+    "Licensed"
+  ],
+  "location": {
+    "address": "Hamilton, ON, Canada",
+    "coordinates": [
+      -116.9477709,
+      47.707881
+    ],
+    "type": "Point"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1670460879752"
+    }
+  },
+  "slug": "brew-bar",
+  "__v": 0,
+  "photo": "f490ccd7-5cc8-4dbc-ae33-fec4da8cb698.jpeg"
+},{
+  "_id": {
+    "$oid": "639136a32b170949bbff989e"
+  },
+  "name": "Mulberry Street Coffeehouse",
+  "description": "Great Coffee! MMmmm... ☕️",
+  "tags": [
+    "WiFi",
+    "Family Friendly"
+  ],
+  "location": {
+    "address": "Mulberry Coffeehouse, James Street North, Hamilton, ON, Canada",
+    "coordinates": [
+      -79.8670143,
+      43.2618549
+    ],
+    "type": "Point"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1670461091852"
+    }
+  },
+  "slug": "mulberry-street-coffeehouse",
+  "__v": 0,
+  "photo": "9b5a6535-7550-4c72-9c34-d25fc88db4cd.png"
+},{
+  "_id": {
+    "$oid": "639137362b170949bbff98a1"
+  },
+  "name": "Butcher And The Vegan",
+  "description": "Goooooooooood food, man!  🍽️",
+  "tags": [
+    "WiFi",
+    "Open Late",
+    "Family Friendly",
+    "Licensed"
+  ],
+  "location": {
+    "address": "Butcher and the Brewer, East 4th Street, Cleveland, OH, USA",
+    "coordinates": [
+      -81.6900132,
+      41.49914649999999
+    ],
+    "type": "Point"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1670461238818"
+    }
+  },
+  "slug": "butcher-and-the-vegan",
+  "__v": 0,
+  "photo": "c79e6106-d68d-45ff-add5-ab91ca7fb121.jpeg"
+},{
+  "_id": {
+    "$oid": "63923d423e2ac040c914a9fa"
+  },
+  "name": "It's Always Donut Time",
+  "description": "MMMmmmm... Donuts. 🍩",
+  "tags": [
+    "WiFi",
+    "Family Friendly",
+    "Vegetarian"
+  ],
+  "location": {
+    "address": "Pip's Original Doughnuts & Chai, Northeast Fremont Street, Portland, OR, USA",
+    "coordinates": [
+      -122.6138045,
+      45.5483793
+    ],
+    "type": "Point"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1670528322719"
+    }
+  },
+  "slug": "its-always-donut-time",
+  "__v": 0,
+  "photo": "fc043ed3-1b06-4f09-868e-f143a7f95b96.jpeg"
+},{
+  "_id": {
+    "$oid": "639267003e2ac040c914a9fd"
+  },
+  "name": "Aw, Shucky-Dukcy Oysters!",
+  "description": "AAAaaaaaaaaaawwwwww.... SHUCKY-DUCKY!!  🦪  🦆",
+  "tags": [
+    "WiFi",
+    "Open Late",
+    "Family Friendly",
+    "Licensed"
+  ],
+  "location": {
+    "address": "Oregon Oyster Farm Inc, Yaquina Bay Road, Newport, OR, USA",
+    "coordinates": [
+      -123.9921619,
+      44.5800269
+    ],
+    "type": "Point"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1670539008377"
+    }
+  },
+  "slug": "aw-shucky-dukcy-oysters",
+  "__v": 0,
+  "photo": "cce9b413-063a-4789-8e91-4b21b9f060ab.jpeg"
+},{
+  "_id": {
+    "$oid": "63977a8e330d4fb5b1c85617"
+  },
+  "name": "Brew Bar",
+  "description": "Brew Bar 2 — The Sequel. Expanding Our Global Empire, One Brewski At A Time. 🍺 GO DUCKS!",
+  "tags": [
+    "WiFi",
+    "Open Late",
+    "Family Friendly",
+    "Licensed"
+  ],
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      151.0834492,
+      -33.77330490000001
+    ],
+    "address": "Brew Bar, Chambers Court, Epping NSW, Australia"
+  },
+  "photo": "07cb772a-7b60-43c4-bccd-1aa8492f6224.jpeg",
+  "created": {
+    "$date": {
+      "$numberLong": "1670871694921"
+    }
+  },
+  "slug": "brew-bar-2",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a1ec7209b6655994e6d831"
+  },
+  "name": "The New NEW Store!",
+  "description": "The Newest of all the NEW!! Great sammies 🥪 !",
+  "tags": [
+    "WiFi",
+    "Open Late",
+    "Family Friendly",
+    "Licensed"
+  ],
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      8.5370267,
+      47.3915467
+    ],
+    "address": "The New New, Rotbuchstrasse, Zürich, Switzerland"
+  },
+  "photo": "fb5fc1c0-f0bb-4bca-a71b-0e18c645e348.jpeg",
+  "author": {
+    "$oid": "63a07aede2e49ccdc270415b"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1671556210009"
+    }
+  },
+  "slug": "the-new-new-store",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a1f046716fbe492692b7dd"
+  },
+  "name": "Randy's Donuts",
+  "description": "Amazing Donutes... just amazing!",
+  "tags": [
+    "WiFi",
+    "Family Friendly"
+  ],
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -118.3703828,
+      33.96185030000001
+    ],
+    "address": "Randy's Donuts, West Manchester Boulevard, Inglewood, CA, USA"
+  },
+  "photo": "0dfd8a94-9afe-409f-b3de-cc24d2cd65a6.jpeg",
+  "author": {
+    "$oid": "63a07fba34018577b84ddbd1"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1671557190903"
+    }
+  },
+  "slug": "randys-donuts",
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "63a1f119716fbe492692b7f5"
+  },
+  "name": "the schpooky place",
+  "description": "oh keeeedz! eeeeeeez sooooooo skerrry, keeeeeedz!  👻",
+  "tags": [
+    "WiFi",
+    "Open Late",
+    "Licensed"
+  ],
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      -121.213655,
+      45.622341
+    ],
+    "address": "Spooky's Pizza, West 6th Street, The Dalles, OR, USA"
+  },
+  "photo": "5f0447d3-bb19-4266-a695-ef7be0272523.jpeg",
+  "author": {
+    "$oid": "63a1f090716fbe492692b7ea"
+  },
+  "created": {
+    "$date": {
+      "$numberLong": "1671557401235"
+    }
+  },
+  "slug": "the-schpooky-place",
+  "__v": 0
+}]

@@ -1,0 +1,10 @@
+mixin resetForm()
+	//- when you leave the `action` off a form, it defaults to be
+	//- the page you are on.
+	form.form(method="POST")
+		h2 #{title}
+		strong.lable(for="password") Password 
+		input(type="password" name="password" required)
+		strong.lable(for="password-confirm") Confirm Password 
+		input(type="password" name="password-confirm" required)
+		input.button(type="submit" value="Reset your Password 👉")

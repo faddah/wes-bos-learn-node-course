@@ -38,6 +38,7 @@ exports.resize = async (req, res, next) => {
 }
 
 exports.createStore = async (req, res) => {
+	req.body.author = req.user._id;
 	const store = await (new Store(req.body)).save();
 	// await store.save();
 	// res.json(req.body)
@@ -53,12 +54,19 @@ exports.getStores = async (req, res) => {
 	res.render('stores', { title: "Our Stores", elips: "...", stores });
 }
 
+const confirmOwner = (store, user) => {
+	if(!store.author.equals(user._id)) {
+		throw Error(`You are not the Owner of this store — you must be the store owner to edit it.`)
+	}
+}
+
 exports.editStores = async (req, res) => {
 	// 1. Find the store given the id
 	// res.json(req.params); // shows it returns just the id for that store from the params
 	const store = await Store.findOne({ _id: req.params.id });
 	// res.json(store);
 	// TODO: 2. Authenticate user as store owner via login
+	confirmOwner(store, req.user);
 	// 3. Render out the edit form so the store owner can update their page
 	res.render('editStore', { title: `Edit ${store.name}`, store });
 }
@@ -80,7 +88,7 @@ exports.updateStore = async (req, res) => {
 
 exports.getStoreBySlug = async (req, res, next) => {
 	// res.send('hey, it works. what else you want? you\'re so demanding.');
-	const store = await Store.findOne({ slug: req.params.slug });
+	const store = await Store.findOne({ slug: req.params.slug }).populate('author');
 	if(!store) return next();
 	// res.json(store);
 	res.render('store', { store, title: store.name });
@@ -96,3 +104,24 @@ exports.getStoresByTag = async (req, res) => {
 	// res.json(stores);
 	res.render('tag', { tags, title: '#Tags!', tag, stores });
 }
+
+exports.searchStores = async (req, res) => {
+	// res.json(req.query);
+	const stores = await Store
+		// first, find the stores that match...
+		.find({
+			$text: {
+				$search: req.query.q
+			}
+		},
+		// ...then, sort their sorry asses
+		{
+			score: { $meta: 'textScore' }
+		}).sort({
+			score: { $meta: 'textScore' }
+		})
+		.limit(5);
+	res.json(stores);
+}
+
+exports.mapPage = (req, res) => res.render('map', { title: `Map` });

@@ -42,3 +42,23 @@ exports.register = async (req, res, next) => {
 	// res.send(`<h1>It worked!</h1>`)
 	next();  // if successful, pass to next middleware, authController().login
 };
+
+exports.account = (req, res) => res.render('account', { title: `Edit Your Account` });
+exports.updateAccount = async (req, res) => {
+	const updates = {
+		name: req.body.name,
+		email: req.body.email,
+	};
+	
+	const user = await User.findOneAndUpdate(
+		// first the query, based on the user _id
+		{ _id: req.user._id },
+		// then the update, using mongodb $set
+		{ $set: updates },
+		// then: the options
+		{ new: true, runValidators: true,	context: 'query', },
+	);
+	req.flash('success', `Your Profile has been successfuly updated.`)
+	res.redirect('back')
+}
+

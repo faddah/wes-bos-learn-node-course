@@ -33,7 +33,18 @@ const storeSchema = new mongoose.Schema({
 			required: 'You _must_ supply an address!'
 		}
 	},
-	photo: String
+	photo: String,
+	author: {
+		type: mongoose.Schema.ObjectId,
+		ref: 'User',
+		required: `Please supply an author.`
+	}
+});
+
+// Define indexes in MongoDB to speed up search
+storeSchema.index({
+	name: 'text',
+	description: 'text',
 });
 
 storeSchema.pre('save', async function(next) {

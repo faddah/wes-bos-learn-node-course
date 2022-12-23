@@ -1,0 +1,8 @@
+mixin accountForm()
+	pre= h.dump(user)
+	form(action="/account" method="POST")
+		strong.label(for="name") Name 
+		input(type="text" name="name" value=user.name)
+		strong.label(for="email") Email 
+		input(type="email" name="email" value=user.email)
+		input.button(type="submit" value="Update My Account 👉")

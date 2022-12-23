@@ -16,7 +16,7 @@ body {
 
 .inner {
   max-width:900px;
-  margin: 0 auto;
+  margin: 0 auto 1em auto;
   @media all and (max-width: 900px) {
     padding: 2rem;
   }
