@@ -1,12 +1,12 @@
 import axios from "axios";
 import { $ } from "./bling";
 
-const typeAhead = search => {
+function typeAhead(search) {
 	if(!search) return; 
 	const searchInput = search.querySelector('input[name="search"]');
 	const searchResults = search.querySelector('.search__results');
 	// console.log(search, searchInput, searchResults);
-	searchInput.on('input', () => {
+	searchInput.on('input', function() {
 		// if there is no value, just quit it already.
 		if(!this.value) {
 			searchResults.style.display = 'none';
