@@ -12,7 +12,7 @@ const typeAhead = search => {
 			searchResults.style.display = 'none';
 			return; // stop!
 		}
-		console.log(this.value);
+		// console.log(this.value);
 		// show the search results div
 		searchResults.style.display = 'block';
 		axios
