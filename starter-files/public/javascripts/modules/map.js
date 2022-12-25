@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { addListener } from '../../../models/Store';
-// import { $ } from "./bling";
+import { $ } from "./bling";
 
 const mapOptions = {
 	center: { lat: 43.2, lng: -79.8 },
@@ -50,7 +50,7 @@ function makeMap(mapDiv) {
 	const map = new google.maps.Map(mapDiv, mapOptions);
 	loadPlaces(map);
 
-	const input = document.querySelector('[name="geolocate"]');
+	const input = $('[name="geolocate"]');
 	console.log(input);
 	const autocomplete = new google.maps.places.Autocomplete(input);
 }
