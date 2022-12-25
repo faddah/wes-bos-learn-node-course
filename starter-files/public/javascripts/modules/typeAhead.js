@@ -4,11 +4,9 @@ import dompurify from 'dompurify';
 function searchResultsHTML(stores) {
 	return stores.map(store => {
 		return `
-			<p style="font-size: 1.5em;">
-				<a href="/store/${store.slug}" className="search__result">
+				<a href="/store/${store.slug}" class="search__result">
 					<strong>${store.name}</strong>
 				</a>
-			</p>
 		`;
 		}).join('');
 }
@@ -28,7 +26,7 @@ function typeAhead(search) {
 		searchResults.style.display = 'block';
 		searchResults.innerHTML = '';
 		axios
-		.get(`/api/search?q=${this.value}`)
+		.get(`/api/search?q=${this.value.toLowerCase()}`)
 		.then(res => {
 			if(res.data.length) {
 				searchResults.innerHTML = dompurify.sanitize(searchResultsHTML(res.data));
@@ -49,8 +47,30 @@ function typeAhead(search) {
 		}
 		const activeClass = 'search__result--active'; 
 		const current = search.querySelector(`.${activeClass}`);
-		const items = search.querySelector(`.search__result`);
+		const items = search.querySelectorAll(`.search__result`);
 		let next;
+		/*
+		switch (true) {
+			case e.keyCode === 40 && current:
+				next = current.nextElementSibling || items[0];
+				return;
+			case e.keyCode === 40:
+				next = items[0];
+				return;
+			case e.keyCode === 38 && current:
+				next = current.previousElementSibling || items[items.length - 1];
+				return;
+			case e.keyCode === 38:
+				next = items[items.length - 1];
+				return;
+			case e.keyCode === 13 && current.href:
+				next = items[items.length - 1];
+				window.location = current.href;
+				return;
+			default:
+				return;
+		}
+		*/
 		if(e.keyCode === 40 && current) {
 			next = current.nextElementSibling || items[0];
 		} else if(e.keyCode === 40) {
