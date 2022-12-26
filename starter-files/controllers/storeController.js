@@ -125,6 +125,7 @@ exports.searchStores = async (req, res) => {
 }
 
 exports.mapPage = async (req, res) => res.render('map', { title: `Map` });
+
 exports.mapStores = async (req, res) => {
 	const coordinates = [req.query.lng, req.query.lat].map(parseFloat);
 	const query = {
@@ -142,4 +143,11 @@ exports.mapStores = async (req, res) => {
 		.select('slug name description location photo')
 		.limit(10);
 	res.json(stores);
+}
+
+exports.heartStore = async (res, req) => {
+	const hearts = await req.user.hearts.map(obj => obj.toString());
+	console.log((hearts));
+	console.log(`Store is "heart"-ed/liked! ${hearts}`);
+	res.json(hearts)
 }

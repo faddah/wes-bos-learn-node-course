@@ -73,15 +73,15 @@ storeSchema.statics.getTagsList = function() {
 	return this.aggregate([
 		// it's basically - use MongoDB aggregator pipeline functions to:
 		// 1. $unwind what tags are in each store
-		// 2. $group them by tag and count them with $sum
-		// 3. $sort them
 		// $unwind aggregation operator function on MongoDB docs —
 		// https://www.mongodb.com/docs/manual/reference/operator/aggregation/unwind/
 		{ $unwind: '$tags' },
+		// 2. $group them by tag and count them with $sum
 		// $group & $sum operators on MongoDB Docs —
 		// https://www.mongodb.com/docs/manual/reference/operator/aggregation/group/#mongodb-pipeline-pipe.-group
 		// https://www.mongodb.com/docs/manual/reference/operator/aggregation/sum/#mongodb-group-grp.-sum
 		{ $group: { _id: '$tags', count: { $sum: 1 } } },
+		// 3. $sort them
 		// $sort operator on MongoDB Docs —
 		// https://www.mongodb.com/docs/v6.0/reference/operator/aggregation/sort/
 		{ $sort: { count: -1 } }  // -1 sorts it in descending order
