@@ -147,7 +147,7 @@ exports.mapStores = async (req, res) => {
 
 exports.heartStore = async (res, req) => {
 	const hearts = await req.user.hearts.map(obj => obj.toString());
-	console.log((hearts));
+	console.log(hearts);
 	console.log(`Store is "heart"-ed/liked! ${hearts}`);
 	res.json(hearts)
 }
