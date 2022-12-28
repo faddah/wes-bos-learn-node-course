@@ -86,6 +86,7 @@ router.post('/account/reset/:token',
 	catchErrors(authController.update),
 );
 router.get('/map', storeController.mapPage);
+router.get('/hearts', catchErrors(storeController.getHearts))
 
 /* 
 
