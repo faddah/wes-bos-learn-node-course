@@ -39,6 +39,9 @@ const storeSchema = new mongoose.Schema({
 		ref: 'User',
 		required: `Please supply an author.`
 	}
+}, {
+	toJSON: { virtuals: true },
+	toObject: { virtuals: true }
 });
 
 // Define indexes in MongoDB to speed up search
@@ -97,5 +100,57 @@ storeSchema.statics.getTagsList = function() {
 	}
 	*/
 }
+
+storeSchema.statics.getTopStores = function() {
+	return this.aggregate([
+		// Lookup Stores and populate the reviews - use MongoDB methods
+		{ $lookup: { 
+				from: 'reviews',
+				localField: '_id',
+				foreignField: 'store',
+				as: 'reviews' 
+			} 
+		},
+		// filter only for Items that have 2 or more reivews
+		{ 
+			$match: { 
+				'reviews.1': { 
+					$exists: true
+				} 
+			}
+		},
+		// Add the average reviews field
+		{ $project: {
+				photo: '$$ROOT.photo',
+				name: '$$ROOT.name',
+				reviews: '$$ROOT.reviews',
+				slug: '$$ROOT.slug',
+				averageRating: { $avg: '$reviews.rating' }
+			} 
+		},
+		// sort it by our own new field, highest reviews first
+		{ $sort: {  
+				averageRating: -1,
+			} 
+		},
+		// limit it to at most ten
+		{ $limit: 10 }
+	]);
+}
+
+// Find reviews where the store's _id property === reviews stores property
+storeSchema.virtual('reviews', {
+	ref: 'Review',  // what model to link?
+	localField: '_id',  // which field on the store?
+	foreignField: 'store',  // which field on the reivew?
+});
+
+function autopopulate(next) {
+	this.populate('reviews');
+	next();
+}
+
+storeSchema.pre('find', autopopulate);
+storeSchema.pre('findOne', autopopulate);
 
 module.exports = mongoose.model('Store', storeSchema);
