@@ -7,7 +7,7 @@ const reviewController = require('../controllers/reviewController');
 
 const { catchErrors } = require('../handlers/errorHandlers');
 
-// Do work here
+// Do some work here
 /* 
 router.get('/', (req, res) => {
 	// const faddah = {
